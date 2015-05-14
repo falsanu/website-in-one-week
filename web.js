@@ -1,4 +1,6 @@
-var keystone = require('keystone');
+var keystone = require('keystone'),
+  handlebars = require('express-handlebars');
+
 keystone.init({
 
   'name': 'My Project',
@@ -8,15 +10,23 @@ keystone.init({
   'static': ['public'],
 
   'views': 'templates/views',
-  'view engine': 'jade',
+  'view engine': 'hbs',
+
+  'custom engine': handlebars.create({
+    layoutsDir: 'templates/views/layouts',
+    partialsDir: 'templates/views/partials',
+    defaultLayout: 'default',
+    helpers: new require('./templates/views/helpers')(),
+    extname: '.hbs'
+  }).engine,
 
   'auto update': true,
-  'mongo': 'mongodb://localhost/my-project',
+  'mongo': 'mongodb://localhost/jan-fanslau',
 
   'session': true,
   'auth': true,
   'user model': 'User',
-  'cookie secret': '(your secret here)'
+  'cookie secret': 'asdf9ß09üpuaioe+#föd,hk32hasefup2398fhöqiakc'
 
 });
 
